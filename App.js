@@ -5,6 +5,7 @@ import * as firebase from 'firebase';
 import Authentication from './components/Authentication';
 import HomePage from './components/HomePage';
 
+// LOOLL
 const firebaseConfig = {
   apiKey: "AIzaSyDGbz6rYVh4IhEHD2as3ckN4UNzMW6S488",
   authDomain: "marchingfalcon-75e0f.firebaseapp.com",
