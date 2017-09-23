@@ -36,9 +36,10 @@ class Authentication extends Component {
             this.setState({ error: 'Failed to obtain user ID token.' + err, loading: false });
           });
       })
-      .catch((err) => { console.log(err) 
-        this.setState({error: '', loading: false});
-        
+      .catch((err) => {
+        console.log(err)
+        this.setState({ error: '', loading: false });
+
         /*
         
         //Login was not successful, let's create a new account
@@ -56,9 +57,10 @@ class Authentication extends Component {
               });
           })
           .catch((err) => {
-            this.setState({ error: 'Authentication failed. ' + err, loading: false });
+            this.setState({ error: 'Authentication
+           failed. ' + err, loading: false });
           });
-        */ }); 
+        */ });
   }
   renderButtonOrSpinner() {
     if (this.state.loading) {

@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import { ActivityIndicator, AsyncStorage, StyleSheet, Text, View } from 'react-native';
 import {Router, Scene} from 'react-native-router-flux';
 import * as firebase from 'firebase';
-import Authentication from './components/Authentication';
+import Authentication from './components/LoginAuthentication';
 import HomePage from './components/HomePage';
 //fixed 
 const firebaseConfig = {
