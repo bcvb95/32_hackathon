@@ -77,6 +77,7 @@ class Authentication extends Component {
   }
   
   render() {
+    var lol = 'yo'
     return (
       <KeyboardAvoidingView style={styles.container} behavior='padding'>
         <Text style={styles.title}>Welcome</Text>
