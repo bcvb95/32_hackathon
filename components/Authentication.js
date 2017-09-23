@@ -1,6 +1,6 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import ReactNative from 'react-native';
-import {Actions} from 'react-native-router-flux';
+import { Actions } from 'react-native-router-flux';
 import * as firebase from 'firebase';
 import styles from '../styles';
 const {
@@ -24,41 +24,45 @@ class Authentication extends Component {
     this.setState({ error: '', loading: true });
     const { username, password } = this.state;
     firebase.auth().signInWithEmailAndPassword(username, password)
-    .then(() => {
-      this.setState({ error: '', loading: false });
-      firebase.auth().currentUser.getIdToken().then(function(idToken) {
-        AsyncStorage.setItem('id_token', idToken);
-        console.log(idToken);
-        Alert.alert( 'Sign In Successfully!', 'Click the button to go to Home Page!');
-        Actions.HomePage();
+      .then(() => {
+        this.setState({ error: '', loading: false });
+        firebase.auth().currentUser.getIdToken().then(function (idToken) {
+          AsyncStorage.setItem('id_token', idToken);
+          console.log(idToken);
+          Alert.alert('Sign In Successfully!', 'Click the button to go to Home Page!');
+          Actions.HomePage();
+        })
+          .catch((err) => {
+            this.setState({ error: 'Failed to obtain user ID token.' + err, loading: false });
+          });
       })
-      .catch((err) => {
-        this.setState({ error: 'Failed to obtain user ID token.'+err, loading: false });
-      });
-    })
-    .catch((err) => {
+      .catch((err) => { console.log(err) 
+        this.setState({error: '', loading: false});
+        
+        /*
+        
         //Login was not successful, let's create a new account
         firebase.auth().createUserWithEmailAndPassword(username, password)
-        .then(() => { 
-          this.setState({ error: '', loading: false });
-          firebase.auth().currentUser.getIdToken().then(function(idToken) {
-            AsyncStorage.setItem('id_token', idToken);
-            console.log(idToken);
-            Alert.alert( 'Sign Up Successfully!', 'Click the button to go to Home Page!');
-            Actions.HomePage();
+          .then(() => {
+            this.setState({ error: '', loading: false });
+            firebase.auth().currentUser.getIdToken().then(function (idToken) {
+              AsyncStorage.setItem('id_token', idToken);
+              console.log(idToken);
+              Alert.alert('Sign Up Successfully!', 'Click the button to go to Home Page!');
+              Actions.HomePage();
+            })
+              .catch(() => {
+                this.setState({ error: 'Failed to obtain user ID token.', loading: false });
+              });
           })
-          .catch(() => {
-            this.setState({ error: 'Failed to obtain user ID token.', loading: false });
+          .catch((err) => {
+            this.setState({ error: 'Authentication failed. ' + err, loading: false });
           });
-        })
-        .catch((err) => {
-            this.setState({ error: 'Authentication failed. '+err, loading: false });
-        });
-    });
+        */ }); 
   }
   renderButtonOrSpinner() {
     if (this.state.loading) {
-        return <ActivityIndicator size='small' />;    
+      return <ActivityIndicator size='small' />;
     }
     return <Button onPress={this.userAuth.bind(this)} title="Log in" />;
   }
@@ -70,14 +74,14 @@ class Authentication extends Component {
         <View style={styles.form}>
           <TitledInput
             label='Email Address'
-            onChangeText={(username) => this.setState({username})}
+            onChangeText={(username) => this.setState({ username })}
             placeholder='Username'
             value={this.state.username}
           />
 
           <TitledInput
             label='Password'
-            onChangeText={(password) => this.setState({password})}
+            onChangeText={(password) => this.setState({ password })}
             placeholder='Password'
             secureTextEntry
             value={this.state.password}
@@ -90,23 +94,23 @@ class Authentication extends Component {
   }
 }
 const TitledInput = ({ label, value, onChangeText, placeholder, secureTextEntry }) => {
-    
-    const { inputStyle, labelStyle, containerStyle } = styles;
 
-    return (
-        <View style={containerStyle}>
-            <Text style={labelStyle}>{label.toUpperCase()}</Text>
-            <TextInput
-            autoCorrect={false}
-            placeholder={placeholder}
-            secureTextEntry={secureTextEntry}
-            value={value}
-            onChangeText={onChangeText}
-            style={inputStyle}
-            editable={true}
-            returnKeyType='next'
-          />
-        </View>
-    );
+  const { inputStyle, labelStyle, containerStyle } = styles;
+
+  return (
+    <View style={containerStyle}>
+      <Text style={labelStyle}>{label.toUpperCase()}</Text>
+      <TextInput
+        autoCorrect={false}
+        placeholder={placeholder}
+        secureTextEntry={secureTextEntry}
+        value={value}
+        onChangeText={onChangeText}
+        style={inputStyle}
+        editable={true}
+        returnKeyType='next'
+      />
+    </View>
+  );
 };
 module.exports = Authentication;
