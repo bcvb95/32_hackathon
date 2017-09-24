@@ -4,6 +4,7 @@ import {Router, Scene} from 'react-native-router-flux';
 import * as firebase from 'firebase';
 import Authentication from './components/Authentication';
 import HomePage from './components/HomePage';
+
 //fixed 
 const firebaseConfig = {
     apiKey: "AIzaSyDGbz6rYVh4IhEHD2as3ckN4UNzMW6S488",
@@ -13,6 +14,7 @@ const firebaseConfig = {
     storageBucket: "marchingfalcon-75e0f.appspot.com",
     messagingSenderId: "744638475270"
 };
+
 const firebaseApp = firebase.initializeApp(firebaseConfig);
 console.ignoredYellowBox = [
   "Setting a timer"
